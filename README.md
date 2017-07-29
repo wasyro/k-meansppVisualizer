@@ -1,4 +1,4 @@
-# k-means-Visualizer
+# k-meansppVisualizer
 visualize algorithm of k-means++  
 
 ## Description
