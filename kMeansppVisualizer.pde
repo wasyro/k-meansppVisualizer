@@ -1,4 +1,4 @@
-int numberOfSamples = 1000;
+int numberOfSamples = 500;
 int numberOfClusters = 5;
 
 Sample samples[] = new Sample[numberOfSamples];
