@@ -7,7 +7,6 @@ ArrayList<Centroid> centroids;
 Button nextButton;
 
 Integer colors[] = {#CDDC39, #84FFFF, #EF5350, #FFC400, #EA80FC};
-boolean isMoving = false;
 int step = 1;
 
 void setup() {
