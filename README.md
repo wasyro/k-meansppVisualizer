@@ -20,7 +20,7 @@ https://wasyro.github.io/k-meansppVisualizer/
 ```
 $ mkdir kMeansppVisualizer  
 $ cd kMeansppVisualizer  
-$ git pull https://github.com/wasyro/k-meansppVisualizer.git
+$ git clone https://github.com/wasyro/k-meansppVisualizer.git
 ```  
 
 ## Usage
