@@ -1,4 +1,4 @@
-int numberOfSamples = 100;
+int numberOfSamples = 500;
 int numberOfClusters = 5;
 
 Sample samples[] = new Sample[numberOfSamples];
@@ -202,17 +202,20 @@ void chooseCentroid() {
     }
   }
 
-  int centroidIndex = centroidIndexOnProbs;
-  for (int i = 0; i <= centroidIndexOnProbs; i++) {
-    if(samples[i].isCentroid) {
-      centroidIndex++;
+  IntList probsToSamples = new IntList();
+  for (int i = 0; i < numberOfSamples; i++) {
+    if (!samples[i].isCentroid) {
+      probsToSamples.append(i);
     }
   }
+
+  int centroidIndex = probsToSamples.get(centroidIndexOnProbs);
 
   int cluster = centroids.size();
   centroids.add(new Centroid(samples[centroidIndex].x, samples[centroidIndex].y, cluster));
   samples[centroidIndex].isCentroid = true;
 }
+
 void initClusters() {
   for (int i = 0; i < numberOfSamples; i++) {
     samples[i].cluster = 0;
