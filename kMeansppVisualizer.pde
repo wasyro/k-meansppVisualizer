@@ -2,7 +2,6 @@ int numberOfSamples = 500;
 int numberOfClusters = 5;
 
 Sample samples[] = new Sample[numberOfSamples];
-Float sampleProbs[] = new Float[numberOfSamples]; // probability distribution
 ArrayList<Centroid> centroids;
 Button nextButton;
 
@@ -175,41 +174,41 @@ void chooseFirstCentroid() {
 void chooseCentroid() {
   // choose which sample is as a centroid
   // closer to a centroid, higher probability
-  FloatList probs = new FloatList();
+  float[] probs = new float[0];
   int centroidIndexOnProbs = 0;
-  
+
   for (int i = 0; i < samples.length; i++) {
     if (!samples[i].isCentroid) {
-      probs.append(samples[i].prob);
+      probs = append(probs, samples[i].prob);
     }
   }
 
   // append 0 to head of probs
-  probs.reverse();
-  probs.append(0.0);
-  probs.reverse();
+  probs = reverse(probs);
+  probs = append(probs, 0.0);
+  probs = reverse(probs);
 
-  for (int i = 1; i < probs.size(); i++) {
-    probs.add(i, probs.get(i - 1));
+  for (int i = 1; i < probs.length; i++) {
+    probs[i] += probs[i - 1];
   }
 
-  float centroidGenerator = random(0, probs.get(probs.size() - 1));
-  for (int i = 0; i < probs.size() - 1; i++) {
-    if (probs.get(i) < centroidGenerator
-      && centroidGenerator <= probs.get(i + 1)) {
+  float centroidGenerator = random(0, probs[probs.length - 1]);
+  for (int i = 0; i < probs.length - 1; i++) {
+    if (probs[i] < centroidGenerator
+      && centroidGenerator <= probs[i + 1]) {
       centroidIndexOnProbs = i;
       break;
     }
   }
 
-  IntList probsToSamples = new IntList();
+  int[] probsToSamples = new int[0];
   for (int i = 0; i < numberOfSamples; i++) {
     if (!samples[i].isCentroid) {
-      probsToSamples.append(i);
+      probsToSamples = append(probsToSamples, i);
     }
   }
 
-  int centroidIndex = probsToSamples.get(centroidIndexOnProbs);
+  int centroidIndex = probsToSamples[centroidIndexOnProbs];
 
   int cluster = centroids.size();
   centroids.add(new Centroid(samples[centroidIndex].x, samples[centroidIndex].y, cluster));
