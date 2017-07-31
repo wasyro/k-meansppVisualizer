@@ -12,8 +12,8 @@ class Centroid {
   }
 
   void moveTo(float xTarget, float yTarget) {
-    float xVelocity = (xTarget - x) / 10.0;
-    float yVelocity = (yTarget - y) / 10.0;
+    float xVelocity = (xTarget - x) / 5.0;
+    float yVelocity = (yTarget - y) / 5.0;
     
     x += xVelocity;
     y += yVelocity;

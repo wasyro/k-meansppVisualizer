@@ -1,4 +1,4 @@
-int numberOfSamples = 500;
+int numberOfSamples = 300;
 int numberOfClusters = 5;
 
 Sample samples[] = new Sample[numberOfSamples];
@@ -51,7 +51,7 @@ void draw() {
     initClusters();
     computeProbs();
     showClusteredSamplesWithProbs();
-    showClusteredLinesWithProbs();
+    showClusteredLines();
 
     stroke(255);
     strokeWeight(3);
@@ -62,7 +62,7 @@ void draw() {
     computeProbs();
     chooseCentroid();
     showClusteredSamplesWithProbs();
-    showClusteredLinesWithProbs();
+    showClusteredLines();
 
     stroke(255);
     strokeWeight(3);
@@ -74,7 +74,7 @@ void draw() {
     computeProbs();
 
     showClusteredSamplesWithProbs();
-    showClusteredLinesWithProbs();
+    showClusteredLines();
     stroke(255);
     strokeWeight(3);
     showCentroids();
@@ -145,13 +145,26 @@ void showClusteredSamples() {
 }
 
 void showClusteredSamplesWithProbs() {
+  float maxProb = 0.0;
+  float minProb = 1.0;
+  for (int i = 0; i < numberOfSamples; i++) {
+    if (maxProb < samples[i].prob) {
+      maxProb = samples[i].prob;
+    }
+    if (minProb > samples[i].prob) {
+      minProb = samples[i].prob;
+    }
+  }
+
   for (int i = 0; i < numberOfSamples; i++) {
     // exponentate to make clear difference
-    // closer to a centroid, more transparent
-    float alpha = 255.0 * pow(samples[i].prob, 0.5/float(numberOfClusters));
-    fill(colors[samples[i].cluster], alpha);
+    // farther from a centroid, be shown as a bigger icon.
+    fill(colors[samples[i].cluster]);
+    float d = map(samples[i].prob, minProb, maxProb, 0.1, 3.0);
     
+    samples[i].diameter *= d;
     samples[i].show();
+    samples[i].diameter /= d;
   }
 }
 
